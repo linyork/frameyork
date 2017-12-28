@@ -1,0 +1,66 @@
+version: "3"
+
+networks:
+  frontend:
+# 設定backend子網路
+  backend:
+
+services:
+
+# php
+  php:
+      container_name: php
+      networks:
+        - backend
+      build: "./php/"
+      expose:
+        - 9000
+      volumes:
+        - ./../Site:/var/www/html/Site
+        - ./../System:/var/www/html/System
+        - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
+      tty: true
+
+# nginx
+  nginx:
+      container_name: nginx
+      networks:
+        - frontend
+        - backend
+      build: "./nginx/"
+      ports:
+        - "80:80"
+      volumes:
+        - ./nginx/conf:/etc/nginx/conf.d
+        - ./log/nginx:/var/log/nginx
+        - ./../Site:/var/www/html/Site
+        - ./../System:/var/www/html/System
+
+# mysql
+  mysql:
+    container_name: mysql
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: frameyorkdb
+      MYSQL_USER: york
+      MYSQL_PASSWORD: york
+    command: mysqld --max_allowed_packet=1024M
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+
+# phpmyadmin for mysql
+  phpmyadmin_mysql:
+    container_name: phpmyadmin
+    networks:
+      - frontend
+      - backend
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql

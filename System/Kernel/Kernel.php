@@ -22,7 +22,7 @@
  *
  * 不同環境設定不同級別的錯誤報告
  */
-switch(ENV)
+switch ( ENV )
 {
     case 'dev':
         \error_reporting(-1);
@@ -46,28 +46,23 @@ switch(ENV)
  *
  * autoload system || site  之下的各個 class
  */
-\spl_autoload_register(function($className) {
+\spl_autoload_register(function($className)
+{
 
-    // 自定義允許之 NameSpace
+    // System 自定義允許之 NameSpace
     static $allowNameSpace = array('Kernel', 'Model');
 
     // 取得 NameSpace
     $nameSpace = \strstr($className, '\\', true);
 
     // 指定所要讀取的 path
-    if( !$nameSpace || !\in_array($nameSpace, $allowNameSpace))
-    {
-        $path = ROOT_PATH;
-    }
-    else
-    {
-        $path = SYSTEM_PATH;
-    }
+    $path = (! $nameSpace || ! \in_array($nameSpace, $allowNameSpace)) ? ROOT_PATH : SYSTEM_PATH;
+
 
     // 指定 fileName 的路徑
     $fileName = $path . '/' . \str_replace('\\', '/', $className) . '.php';
 
-    if(\is_file($fileName))
+    if ( \is_file($fileName) )
     {
         require_once $fileName;
     }

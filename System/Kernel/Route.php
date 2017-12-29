@@ -1,18 +1,13 @@
 <?php
+
 namespace Kernel;
 
-class Route extends \Model\Base\Singleton
+class Route
 {
-    // --------------------------------------------------------------------
-
-    public static function instance($httpUserAgent): self
-    {
-        return parent::getInstance($httpUserAgent);
-    }
 
     public function init($httpUserAgent)
     {
-        if(isset($httpUserAgent))
+        if ( isset($httpUserAgent) )
         {
             static::$agent = trim($httpUserAgent);
             static::_compile_data();
@@ -25,14 +20,12 @@ class Route extends \Model\Base\Singleton
     {
         static::_set_platform();
 
-        foreach(array('_set_platform', '_set_browser', '_set_mobile') as $function)
+        foreach ( array('_set_platform', '_set_browser', '_set_mobile') as $function )
         {
-            if(static::$function() === TRUE)
+            if ( static::$function() === TRUE )
             {
                 break;
             }
         }
     }
-
-    // --------------------------------------------------------------------
 }

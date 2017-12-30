@@ -2,20 +2,19 @@
 
 namespace Kernel;
 
-class Agent extends \Model\Base\Singleton
+class Agent
 {
-    static public $agent = NULL;
+    private static  $agent  = NULL;
 
-    static public $isBrowser = FALSE;
-    static public $isRobot   = FALSE;
-    static public $isMobile  = FALSE;
+    private static $isBrowser = FALSE;
+    private static  $isMobile  = FALSE;
 
-    static public $platform = '';
-    static public $browser  = '';
-    static public $version  = '';
-    static public $mobile   = '';
+    private static  $platform = '';
+    private static  $browser  = '';
+    private static  $version  = '';
+    private static  $mobile   = '';
 
-    static public $platforms = array('windows nt 10.0' => 'Windows 10',
+    private static $platforms = array('windows nt 10.0' => 'Windows 10',
                                      'windows nt 6.3'  => 'Windows 8.1',
                                      'windows nt 6.2'  => 'Windows 8',
                                      'windows nt 6.1'  => 'Windows 7',
@@ -58,7 +57,7 @@ class Agent extends \Model\Base\Singleton
                                      'unix'            => 'Unknown Unix OS',
                                      'symbian'         => 'Symbian OS');
 
-    static public $browsers = array('OPR'               => 'Opera',
+    private static $browsers = array('OPR'               => 'Opera',
                                     'Flock'             => 'Flock',
                                     'Edge'              => 'Spartan',
                                     'Chrome'            => 'Chrome',
@@ -87,7 +86,7 @@ class Agent extends \Model\Base\Singleton
                                     'Maxthon'           => 'Maxthon',
                                     'Ubuntu'            => 'Ubuntu Web Browser');
 
-    static public $mobiles = array('mobileexplorer'       => 'Mobile Explorer',
+    private static $mobiles = array('mobileexplorer'       => 'Mobile Explorer',
                                    'palmsource'           => 'Palm',
                                    'palmscape'            => 'Palmscape',
                                    'motorola'             => 'Motorola',
@@ -162,26 +161,27 @@ class Agent extends \Model\Base\Singleton
                                    'up.browser'           => 'Generic Mobile',
                                    'smartphone'           => 'Generic Mobile',
                                    'cellphone'            => 'Generic Mobile');
-
-    // --------------------------------------------------------------------
-
-    public static function instance($httpUserAgent) : self
+    /*----------------------------------------------------------------------------------------------------------------*/
+    public static function instance() : self
     {
-        return parent::getInstance($httpUserAgent);
+        static $object = null;
+        if ( $object === null )
+        {
+            $object = new self();
+            $object->init();
+        }
+        return $object;
     }
 
-    public function init($httpUserAgent)
+    protected static function init()
     {
-        if ( isset($httpUserAgent) )
-        {
-            static::$agent = trim($httpUserAgent);
-            static::_compile_data();
-        }
+        static::$agent = \trim($_SERVER['HTTP_USER_AGENT']);
+        static::_compile_data();
         //todo 處理沒有 USER_AGENT 的狀況
     }
 
 
-    protected function _compile_data()
+    protected static function _compile_data()
     {
         static::_set_platform();
 
@@ -193,10 +193,8 @@ class Agent extends \Model\Base\Singleton
             }
         }
     }
-
-    // --------------------------------------------------------------------
-
-    protected function _set_platform()
+    /*----------------------------------------------------------------------------------------------------------------*/
+    protected static function _set_platform()
     {
         if ( \is_array(static::$platforms) && \count(static::$platforms) > 0 )
         {
@@ -215,7 +213,7 @@ class Agent extends \Model\Base\Singleton
     }
 
 
-    protected function _set_browser()
+    protected static function _set_browser()
     {
         if ( \is_array(static::$browsers) && \count(static::$browsers) > 0 )
         {
@@ -235,7 +233,7 @@ class Agent extends \Model\Base\Singleton
         return FALSE;
     }
 
-    protected function _set_mobile()
+    protected static function _set_mobile()
     {
         if ( \is_array(static::$mobiles) && \count(static::$mobiles) > 0 )
         {
@@ -252,9 +250,7 @@ class Agent extends \Model\Base\Singleton
 
         return FALSE;
     }
-
-    // --------------------------------------------------------------------
-
+    /*----------------------------------------------------------------------------------------------------------------*/
     public function isBrowser($key = NULL)
     {
         if ( ! static::$isBrowser )
@@ -280,8 +276,6 @@ class Agent extends \Model\Base\Singleton
         {
             return TRUE;
         }
-
-        // Check for a specific robot
         return (isset(static::$mobiles[$key]) && static::$mobile === static::$mobiles[$key]);
     }
 

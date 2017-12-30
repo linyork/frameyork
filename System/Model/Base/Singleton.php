@@ -7,21 +7,11 @@ namespace Model\Base;
  */
 abstract class Singleton
 {
-    final protected function __construct()
-    {
+    final protected function __construct(){}
 
-    }
+    abstract protected function init( $initData);
 
-    abstract protected function init( $initData );
-
-    /**
-     * put your comment there...
-     *
-     * @param mixed $initData
-     *
-     * @return static::class
-     */
-    public static function getInstance( $initData = null )
+    public static function getInstance( $initData )
     {
         static $object = array();
 

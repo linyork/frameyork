@@ -28,3 +28,6 @@ if ( ENV === 'online' )
  * 解析請求並配置
  */
 \print_r(\Kernel\Request::getUrlPath());
+
+\print_r(\Kernel\Agent::instance()->platform());
+\print_r(\Kernel\Agent::instance()->agent_string());

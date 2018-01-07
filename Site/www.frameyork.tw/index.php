@@ -5,20 +5,11 @@ require_once "./../../System/Kernel/Kernel.php";
  *---------------------------------------------------------------
  * 設定 SITE PATH
  *---------------------------------------------------------------
- *
- * 依環境選擇 SYSTEM 還是 SITE 的設定檔
  */
-// 設定 Site ROOT PATH
+// 設定 ROOT PATH
 \define('ROOT_PATH', __DIR__);
-
-if ( ENV === 'dev' )
-{
-    \define('CONFIG_PATH', ROOT_PATH . '/Config');
-}
-if ( ENV === 'online' )
-{
-    \define('CONFIG_PATH', SYSTEM_PATH . '/Config');
-}
+// 設定 CONFIG PATH
+\define('CONFIG_PATH', ROOT_PATH . '/Config');
 try
 {
     /*

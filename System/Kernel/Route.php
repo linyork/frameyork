@@ -4,21 +4,29 @@ namespace Kernel;
 
 class Route
 {
-    const CLASSMAP    = 0;
-    const FUNCTIONMAP = 1;
+    const CLASS_INDEX    = 0;
+    const FUNCTION_INDEX = 1;
 
     protected static function routingTable(string $map, array $request) : string
     {
-        $routingTable = array(
-            "test/echotest" => array("\Application\Test", "echoTest")
-        );
-
-        if ( ! \array_key_exists($request[0] . "/" . $request[1], $routingTable) )
+        try
         {
-            \header('HTTP/1.1 404 Not Found');
-            throw new \Exception('Action "' . $request[0] . '::' . $request[1] . '()" Not Exist');
+            $routingTable = \Config\RoutingTable::getRoutingTable();
+            if ( ! \array_key_exists($request[0] . "/" . $request[1], $routingTable) )
+            {
+                throw new \Exception('Action "' . $request[0] . '::' . $request[1] . '()" Not Exist');
+            }
+            return $routingTable[$request[0] . "/" . $request[1]][$map];
         }
-        return $routingTable[$request[0] . "/" . $request[1]][$map];
+        catch ( \Exception $e )
+        {
+            if(DEBUG)
+            {
+                \header('HTTP/1.1 404 Not Found');
+                echo $e->getMessage();
+                exit;
+            }
+        }
     }
 
     protected static function getFunctionArgument($request) : array
@@ -37,17 +45,27 @@ class Route
      */
     public static function dispath($request) : void
     {
-        $className    = self::routingTable(\Kernel\Route::CLASSMAP, $request);
-        $functionName = self::routingTable(\Kernel\Route::FUNCTIONMAP, $request);
+        $className    = self::routingTable(\Kernel\Route::CLASS_INDEX, $request);
+        $functionName = self::routingTable(\Kernel\Route::FUNCTION_INDEX, $request);
 
-        if ( ! \method_exists($className, $functionName) )
+        try
         {
-            \header('HTTP/1.1 404 Not Found');
-            throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
+            if ( ! \method_exists($className, $functionName) )
+            {
+                throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
+            }
+        }
+        catch ( \Exception $e )
+        {
+            if(DEBUG)
+            {
+                \header('HTTP/1.1 404 Not Found');
+                echo $e->getMessage();
+                exit;
+            }
         }
 
         $app = new $className();
-
         \call_user_func_array(array($app, $functionName), self::getFunctionArgument($request));
     }
 }

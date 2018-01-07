@@ -13,28 +13,30 @@
 
 
 ## 日誌 ##
+> 18/01/07
+> - 實作 Router
 >
-> 12/30
+> 17/12/30
 > - 整理
-> - 設計Router
+> - 設計 Router
 > - 修正 Agent
 >
-> 12/28
+> 17/12/28
 > - README.md
 >
-> 12/20
+> 17/12/20
 > - 實作 Agent
 > 
-> 12/12
+> 17/12/12
 > - 實作 Kernel 及 autoload
 > 
-> 12/10
+> 17/12/10
 > - 設計資料夾架構
 >
-> 12/09
+> 17/12/09
 > - phinx composer phinx
 > - docker mysql and phpMyAdmin
 >
-> 12/08
+> 17/12/08
 > - docker 基本環境建立
 > - docker php and nginx

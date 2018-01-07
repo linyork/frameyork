@@ -2,8 +2,9 @@
 namespace Application;
 class Test
 {
-    public function echotest()
+    public function echoTest($test)
     {
-        echo '雞龜骨滾羹';
+        echo $test;
+        echo '雞龜骨滾羹'.$_GET['test'];
     }
 }

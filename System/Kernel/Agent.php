@@ -4,15 +4,15 @@ namespace Kernel;
 
 class Agent
 {
-    private static  $agent  = NULL;
+    private static $agent  = NULL;
 
     private static $isBrowser = FALSE;
-    private static  $isMobile  = FALSE;
+    private static $isMobile  = FALSE;
 
-    private static  $platform = '';
-    private static  $browser  = '';
-    private static  $version  = '';
-    private static  $mobile   = '';
+    private static $platform = '';
+    private static $browser  = '';
+    private static $version  = '';
+    private static $mobile   = '';
 
     private static $platforms = array('windows nt 10.0' => 'Windows 10',
                                      'windows nt 6.3'  => 'Windows 8.1',
@@ -162,6 +162,14 @@ class Agent
                                    'smartphone'           => 'Generic Mobile',
                                    'cellphone'            => 'Generic Mobile');
     /*----------------------------------------------------------------------------------------------------------------*/
+    /**
+     * instance
+     *
+     * @return Agent
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public static function instance() : self
     {
         static $object = null;
@@ -251,6 +259,15 @@ class Agent
         return FALSE;
     }
     /*----------------------------------------------------------------------------------------------------------------*/
+    /**
+     * isBrowser
+     *
+     * @param null $key
+     * @return bool
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function isBrowser($key = NULL)
     {
         if ( ! static::$isBrowser )
@@ -266,6 +283,15 @@ class Agent
         return (isset(static::$browsers[$key]) && static::$browser === static::$browsers[$key]);
     }
 
+    /**
+     * isMobile
+     *
+     * @param null $key
+     * @return bool
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function isMobile($key = NULL)
     {
         if ( ! static::$isMobile )
@@ -279,26 +305,66 @@ class Agent
         return (isset(static::$mobiles[$key]) && static::$mobile === static::$mobiles[$key]);
     }
 
+    /**
+     * agent_string
+     *
+     * @return null
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function agent_string()
     {
         return static::$agent;
     }
 
+    /**
+     * platform
+     *
+     * @return string
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function platform()
     {
         return static::$platform;
     }
 
+    /**
+     * browser
+     *
+     * @return string
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function browser()
     {
         return static::$browser;
     }
 
+    /**
+     * version
+     *
+     * @return string
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function version()
     {
         return static::$version;
     }
 
+    /**
+     * mobile
+     *
+     * @return string
+     *
+     * @date   2018/1/5
+     * @author York <jason945119@gmail.com>
+     */
     public function mobile()
     {
         return static::$mobile;

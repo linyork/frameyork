@@ -4,28 +4,50 @@ namespace Kernel;
 
 class Route
 {
+    const CLASSMAP    = 0;
+    const FUNCTIONMAP = 1;
 
-    public function init($httpUserAgent)
+    protected static function routingTable(string $map, array $request) : string
     {
-        if ( isset($httpUserAgent) )
+        $routingTable = array(
+            "test/echotest" => array("\Application\Test", "echoTest")
+        );
+
+        if ( ! \array_key_exists($request[0] . "/" . $request[1], $routingTable) )
         {
-            static::$agent = trim($httpUserAgent);
-            static::_compile_data();
+            \header('HTTP/1.1 404 Not Found');
+            throw new \Exception('Action "' . $request[0] . '::' . $request[1] . '()" Not Exist');
         }
-        //todo 處理沒有 USER_AGENT 的狀況
+        return $routingTable[$request[0] . "/" . $request[1]][$map];
     }
 
-
-    protected function _compile_data()
+    protected static function getFunctionArgument($request) : array
     {
-        static::_set_platform();
+        $argument = $request;
+        unset($argument[0], $argument[1]);
+        return \array_values($argument);
+    }
 
-        foreach ( array('_set_platform', '_set_browser', '_set_mobile') as $function )
+    /**
+     * dispath
+     *
+     * @param $request
+     * @date   2018/1/7
+     * @author York <jason945119@gmail.com>
+     */
+    public static function dispath($request) : void
+    {
+        $className    = self::routingTable(\Kernel\Route::CLASSMAP, $request);
+        $functionName = self::routingTable(\Kernel\Route::FUNCTIONMAP, $request);
+
+        if ( ! \method_exists($className, $functionName) )
         {
-            if ( static::$function() === TRUE )
-            {
-                break;
-            }
+            \header('HTTP/1.1 404 Not Found');
+            throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
         }
+
+        $app = new $className();
+
+        \call_user_func_array(array($app, $functionName), self::getFunctionArgument($request));
     }
 }

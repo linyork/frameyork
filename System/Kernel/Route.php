@@ -6,7 +6,7 @@ class Route
 {
     const CLASS_INDEX    = 0;
     const FUNCTION_INDEX = 1;
-
+    /*----------------------------------------------------------------------------------------------------------------*/
     protected static function routingTable(string $map, array $request) : string
     {
         try
@@ -35,7 +35,7 @@ class Route
         unset($argument[0], $argument[1]);
         return \array_values($argument);
     }
-
+    /*----------------------------------------------------------------------------------------------------------------*/
     /**
      * dispath
      *

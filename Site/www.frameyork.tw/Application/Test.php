@@ -2,11 +2,14 @@
 
 namespace Application;
 
-class Test
+class Test extends \Kernel\Html
 {
-    public function echoTest($test)
+    public function echoTest()
     {
-        echo $test;
-        echo '雞龜骨滾羹' . $_GET['test'];
+        $this->setTitle('我愛的人');
+        $test =  array('test'=>'雞龜骨滾羹');
+
+        $this->display('test.php', $test);
+
     }
 }

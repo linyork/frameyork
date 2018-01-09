@@ -47,12 +47,24 @@ class Route
     {
         $className    = self::routingTable(\Kernel\Route::CLASS_INDEX, $request);
         $functionName = self::routingTable(\Kernel\Route::FUNCTION_INDEX, $request);
+        $functionArgument = self::getFunctionArgument($request);
 
         try
         {
+            if ( ! \class_exists($className) )
+            {
+                throw new \Exception('Action "' . $className . '" Class Not Exist');
+            }
+
             if ( ! \method_exists($className, $functionName) )
             {
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
+            }
+
+            $cfa = new \ReflectionMethod( $className, $functionName );
+            if ( count($functionArgument) !== $cfa->getNumberOfParameters() )
+            {
+                throw new \Exception('Action "' . $className . '::' . $functionName . '()" number of parameters inconsistent');
             }
         }
         catch ( \Exception $e )
@@ -66,6 +78,6 @@ class Route
         }
 
         $app = new $className();
-        \call_user_func_array(array($app, $functionName), self::getFunctionArgument($request));
+        \call_user_func_array(array($app, $functionName), $functionArgument);
     }
 }

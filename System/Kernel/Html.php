@@ -39,22 +39,5 @@ abstract class Html
         return $this;
     }
 
-    protected function display(string $viewPath, array $data = array()) : void
-    {
-        $view = new \Kernel\View($viewPath);
-
-        $view->set($data);
-
-        $html = new \Kernel\View( SYSTEM_PATH."/View/html.php");
-
-        $html->set(array(
-            'title'   => $this->_title,
-            'js'      => $this->_javascript,
-            'jsData'  => $this->_jsData,
-            'css'     => $this->_css,
-            'mainDiv' => $view,
-        ));
-        echo $html;
-        exit;
-    }
+    abstract protected function display(string $viewPath, array $data = array());
 }

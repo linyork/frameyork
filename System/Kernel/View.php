@@ -10,7 +10,7 @@ class View
 
     public function __construct(string $viewPath)
     {
-        $this->_viewPath = ($viewPath !== SYSTEM_PATH . '/View/html.php') ? ROOT_PATH . '/Template/' . $viewPath : $viewPath;
+        $this->_viewPath = ROOT_PATH . '/View/' . $viewPath;
 
         if ( ! \is_file($this->_viewPath) )
         {

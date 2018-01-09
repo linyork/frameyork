@@ -2,7 +2,7 @@
 
 namespace Application;
 
-class Test extends \Kernel\Html
+class Test extends \Engine\Html
 {
     public function echoTest()
     {

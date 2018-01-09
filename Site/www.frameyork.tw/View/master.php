@@ -7,7 +7,9 @@
     <title><?php echo \htmlspecialchars($title);?></title>
 </head>
 <body>
-<?php echo $mainDiv;?>
+<?php echo $headerElement;?>
+<?php echo $bodyElement;?>
+<?php echo $footerElement;?>
 </body>
 <script>
     var jsData=<?php echo \json_encode($jsData) ?>;

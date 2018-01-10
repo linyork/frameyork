@@ -19,11 +19,11 @@ class Route
 
             $filter_one = (\count($request) == 1) ? ! \array_key_exists($request[0], $routingTable) : self::NOT_EXIST;
 
-            $filter_two = (\count($request) >= 2) ? !\array_key_exists($request[0] . "/" . $request[1], $routingTable) : self::NOT_EXIST;
+            $filter_two = (\count($request) >= 2) ? ! \array_key_exists($request[0] . "/" . $request[1], $routingTable) : self::NOT_EXIST;
 
-            if ( $filter_root &&  $filter_one && $filter_two)
+            if ( $filter_root && $filter_one && $filter_two )
             {
-                throw new \Exception($_SERVER['HTTP_HOST']."/".\Kernel\Request::getUrlPathString().' Not Exist');
+                throw new \Exception($_SERVER['HTTP_HOST'] . "/" . \Kernel\Request::getUrlPathString() . ' Not Exist');
             }
 
             switch ( \count($request) )
@@ -43,7 +43,7 @@ class Route
         }
         catch ( \Exception $e )
         {
-            if(DEBUG)
+            if ( DEBUG )
             {
                 \header('HTTP/1.1 404 Not Found');
                 echo $e->getMessage();
@@ -68,8 +68,8 @@ class Route
      */
     public static function dispath($request) : void
     {
-        $className    = self::routingTable(\Kernel\Route::CLASS_INDEX, $request);
-        $functionName = self::routingTable(\Kernel\Route::FUNCTION_INDEX, $request);
+        $className        = self::routingTable(\Kernel\Route::CLASS_INDEX, $request);
+        $functionName     = self::routingTable(\Kernel\Route::FUNCTION_INDEX, $request);
         $functionArgument = self::getFunctionArgument($request);
 
         try
@@ -84,15 +84,15 @@ class Route
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
             }
 
-            $cfa = new \ReflectionMethod( $className, $functionName );
-            if ( count($functionArgument) !== $cfa->getNumberOfParameters() )
+            $cfa = new \ReflectionMethod($className, $functionName);
+            if ( \count($functionArgument) !== $cfa->getNumberOfParameters() )
             {
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" number of parameters inconsistent');
             }
         }
         catch ( \Exception $e )
         {
-            if(DEBUG)
+            if ( DEBUG )
             {
                 \header('HTTP/1.1 404 Not Found');
                 echo $e->getMessage();

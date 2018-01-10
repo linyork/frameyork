@@ -12,12 +12,12 @@ abstract class Master extends \Kernel\Html
 
         $body   = new \Kernel\View($viewPath);
 
-        $body->set($data);
+        $body->setViewData($data);
 
         $footer = new \Kernel\View("footer.php");
 
 
-        $html->set(array(
+        $html->setViewData(array(
             'title'         => $this->_title,
             'js'            => $this->_javascript,
             'jsData'        => $this->_jsData,

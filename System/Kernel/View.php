@@ -30,7 +30,7 @@ class View
         return $this->_content;
     }
 
-    public function set($key, $value = null) : View
+    public function setViewData($key, $value = null) : View
     {
         if ( \is_array($key) )
         {

@@ -20,17 +20,14 @@ class View
 
     public function __toString() : string
     {
-        $this->execute();
-        if ( defined('COMPRESSION_VIEW') && COMPRESSION_VIEW )
-        {
-            return str_replace(array("\t", '  ',), '', $this->___content);
-        }
-        return $this->_content;
-    }
+        \extract( $this->_data );
 
-    public function _set($key, $value) : void
-    {
-        $this->_data[$key] = $value;
+        \ob_start();
+        include $this->_viewPath;
+        $this->_content = \ob_get_contents();
+        \ob_end_clean();
+
+        return $this->_content;
     }
 
     public function set($key, $value = null) : View
@@ -39,20 +36,14 @@ class View
         {
             foreach ( $key as $k => $v )
             {
-                $this->_set($k, $v);
+                $this->_data[$k] = $v;
             }
         }
         else
         {
-            $this->_set($key, $value);
+            $this->_data[$key] = $value;
         }
 
         return $this;
-    }
-
-    public function execute() : void
-    {
-        \extract($this->_data);
-        include $this->_viewPath;
     }
 }

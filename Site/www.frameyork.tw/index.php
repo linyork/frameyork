@@ -33,8 +33,7 @@ catch (\Exception $e)
 {
     if(DEBUG)
     {
-        echo $e->getMessage();
-        exit;
+        exit($e->getMessage());
     }
     header('HTTP/1.1 500 Internal Server Error');
 }

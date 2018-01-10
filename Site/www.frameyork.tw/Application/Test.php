@@ -2,12 +2,12 @@
 
 namespace Application;
 
-class Test extends \Engine\Html
+class Test extends \Template\Master
 {
     public function echoTest()
     {
         $this->setTitle('我愛的人');
-        $test =  array('test'=>'雞龜骨滾羹');
+        $test = array('test'=>'雞龜骨滾羹');
 
         $this->display('test.php', $test);
 

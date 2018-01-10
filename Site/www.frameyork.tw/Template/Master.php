@@ -1,20 +1,21 @@
 <?php
 
-namespace Engine;
+namespace Template;
 
-abstract class Html extends \Kernel\Html
+abstract class Master extends \Kernel\Html
 {
     protected function display(string $viewPath, array $data = array()) : void
     {
-        $html = new \Kernel\View(  "master.php");
+        $html   = new \Kernel\View(  "master.php");
 
         $header = new \Kernel\View("header.php");
 
-        $body = new \Kernel\View($viewPath);
+        $body   = new \Kernel\View($viewPath);
+
+        $body->set($data);
 
         $footer = new \Kernel\View("footer.php");
 
-        $body->set($data);
 
         $html->set(array(
             'title'         => $this->_title,

@@ -16,8 +16,7 @@ services:
       expose:
         - 9000
       volumes:
-        - ./../Site:/var/www/html/Site
-        - ./../System:/var/www/html/System
+        - ./../frameyork:/var/www/html
         - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
       tty: true
 
@@ -33,8 +32,7 @@ services:
       volumes:
         - ./nginx/conf:/etc/nginx/conf.d
         - ./log/nginx:/var/log/nginx
-        - ./../Site:/var/www/html/Site
-        - ./../System:/var/www/html/System
+        - ./../frameyork:/var/www/html
 
 # mysql
   mysql:

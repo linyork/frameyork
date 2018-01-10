@@ -1,15 +1,6 @@
 <?php
 // 載入核心
-require_once "./../../System/Kernel/Kernel.php";
-/*
- *---------------------------------------------------------------
- * 設定 SITE PATH
- *---------------------------------------------------------------
- */
-// 設定 ROOT PATH
-\define('ROOT_PATH', __DIR__);
-// 設定 CONFIG PATH
-\define('CONFIG_PATH', ROOT_PATH . '/Config');
+require_once "./Kernel/Kernel.php";
 try
 {
     /*

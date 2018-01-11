@@ -2,7 +2,7 @@
 
 namespace Application;
 
-class Test extends \Template\Master
+class Test extends \Template\IMaster
 {
     public function echoTest()
     {

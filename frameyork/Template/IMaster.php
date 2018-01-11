@@ -2,7 +2,7 @@
 
 namespace Template;
 
-abstract class Master extends \Kernel\Html
+abstract class IMaster extends \Kernel\IHtml
 {
     protected function display(string $viewPath, array $data = array()) : void
     {

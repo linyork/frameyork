@@ -2,7 +2,7 @@
 
 namespace Template;
 
-abstract class IMaster extends \Kernel\IHtml
+abstract class AMaster extends \Kernel\AHtml
 {
     protected function display(string $viewPath, array $data = array()) : void
     {
@@ -16,6 +16,7 @@ abstract class IMaster extends \Kernel\IHtml
 
         $footer = new \Kernel\View("footer.php");
 
+        print_r($this->_css);
 
         $html->setViewData(array(
             'title'         => $this->_title,
@@ -27,6 +28,5 @@ abstract class IMaster extends \Kernel\IHtml
             'footerElement' => $footer,
         ));
         echo $html;
-        exit;
     }
 }

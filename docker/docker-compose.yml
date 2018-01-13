@@ -12,7 +12,8 @@ services:
       container_name: php
       networks:
         - backend
-      build: "./php/"
+      # build: "./php/"
+      image: php:7.1-fpm
       expose:
         - 9000
       volumes:
@@ -26,7 +27,8 @@ services:
       networks:
         - frontend
         - backend
-      build: "./nginx/"
+      # build: "./nginx/"
+      image: nginx:latest
       ports:
         - "80:80"
       volumes:

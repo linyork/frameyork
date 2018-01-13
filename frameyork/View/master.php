@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/Assets/css/bootstrap.css"/>
 
-    <!--START CSS START-->
     <?php foreach( $css as $v ):?>
         <!--START <?php echo ROOT_PATH.$v;?> START-->
         <link rel="stylesheet" type="text/css" href="<?php echo $v . '?' . \time();?>" media="screen">
         <!--END <?php echo ROOT_PATH.$v;?> END-->
     <?php endforeach;?>
-    <!--START CSS START-->
 
     <title><?php echo \htmlspecialchars($title);?></title>
 </head>
@@ -28,13 +28,18 @@
 
 </body>
 
+<!-- Jquery Library 3.2.1 JavaScript-->
+<script src="/Assets/js/jquery-3.2.1.js"></script>
+
+<!-- Bootstrap Core JavaScript-->
+<script src="/Assets/js/bootstrap.js"></script>
+
 <!--START JSON DATA START-->
 <script>
     var jsData=<?php echo \json_encode($jsData) ?>;
 </script>
 <!--END JSON DATA END-->
 
-<!--START JS FILE START-->
 <?php foreach( $js as $v):?>
     <!--START <?php echo ROOT_PATH.$v;?> START-->
     <script>
@@ -42,5 +47,4 @@
     </script>
     <!--END <?php echo ROOT_PATH.$v;?> END-->
 <?php endforeach;?>
-<!--END JS FILE END-->
 </html>

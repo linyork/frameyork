@@ -15,18 +15,20 @@ class Route
         {
             $routingTable = \Config\RoutingTable::getRoutingTable();
 
-            $filter_root = (\count($request) == 0) ? ! \array_key_exists('', $routingTable) : self::NOT_EXIST;
+            $countRequests = \count($request);
 
-            $filter_one = (\count($request) == 1) ? ! \array_key_exists($request[0], $routingTable) : self::NOT_EXIST;
+            $filter_root = ($countRequests == 0) ? ! \array_key_exists('', $routingTable) : self::NOT_EXIST;
 
-            $filter_two = (\count($request) >= 2) ? ! \array_key_exists($request[0] . "/" . $request[1], $routingTable) : self::NOT_EXIST;
+            $filter_one = ($countRequests == 1) ? ! \array_key_exists($request[0], $routingTable) : self::NOT_EXIST;
+
+            $filter_two = ($countRequests >= 2) ? ! \array_key_exists($request[0] . "/" . $request[1], $routingTable) : self::NOT_EXIST;
 
             if ( $filter_root && $filter_one && $filter_two )
             {
                 throw new \Exception($_SERVER['HTTP_HOST'] . "/" . \Kernel\Request::getUrlPathString() . ' Not Exist');
             }
 
-            switch ( \count($request) )
+            switch ( $countRequests )
             {
                 case '0':
                     return $routingTable[""][$index];
@@ -84,8 +86,8 @@ class Route
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
             }
 
-            $cfa = new \ReflectionMethod($className, $functionName);
-            if ( \count($functionArgument) !== $cfa->getNumberOfParameters() )
+            $classReflectionMethod = new \ReflectionMethod($className, $functionName);
+            if ( \count($functionArgument) > $classReflectionMethod->getNumberOfParameters() )
             {
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" number of parameters inconsistent');
             }

@@ -45,11 +45,10 @@ class Route
         }
         catch ( \Exception $e )
         {
+            \header('HTTP/1.1 404 Not Found');
             if ( DEBUG )
             {
-                \header('HTTP/1.1 404 Not Found');
-                echo $e->getMessage();
-                exit;
+                exit ($e->getMessage());
             }
         }
     }
@@ -94,11 +93,10 @@ class Route
         }
         catch ( \Exception $e )
         {
+            \header('HTTP/1.1 404 Not Found');
             if ( DEBUG )
             {
-                \header('HTTP/1.1 404 Not Found');
-                echo $e->getMessage();
-                exit;
+                exit ($e->getMessage());
             }
         }
 

@@ -13,6 +13,10 @@
 \define('ENV', 'dev');
 // 設定 ROOT PATH
 \define('ROOT_PATH', __DIR__);
+// 設定 CONFIG PATH
+\define('CONFIG_PATH', __DIR__."/Config");
+// 設定 VIEW PATH
+\define('VIEW_PATH', __DIR__."/View");
 
 /*
  *---------------------------------------------------------------
@@ -64,11 +68,11 @@ try
 }
 catch (\Exception $e)
 {
+    header('HTTP/1.1 500 Internal Server Error');
     if(DEBUG)
     {
         exit($e->getMessage());
     }
-    header('HTTP/1.1 500 Internal Server Error');
 }
 
 

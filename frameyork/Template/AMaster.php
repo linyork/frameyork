@@ -16,7 +16,6 @@ abstract class AMaster extends \Kernel\AHtml
 
         $footer = new \Kernel\View("footer.php");
 
-        print_r($this->_css);
 
         $html->setViewData(array(
             'title'         => $this->_title,

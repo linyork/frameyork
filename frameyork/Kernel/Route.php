@@ -13,10 +13,13 @@ class Route
     {
         try
         {
+            // 取得 routingTable : array
             $routingTable = \Config\RoutingTable::getRoutingTable();
 
+            // 計算 request 陣列數目
             $countRequests = \count($request);
 
+            // 判斷 request 是否有相對應的 routingTable
             $filter_root = ($countRequests == 0) ? ! \array_key_exists('', $routingTable) : self::NOT_EXIST;
 
             $filter_one = ($countRequests == 1) ? ! \array_key_exists($request[0], $routingTable) : self::NOT_EXIST;
@@ -28,6 +31,7 @@ class Route
                 throw new \Exception($_SERVER['HTTP_HOST'] . "/" . \Kernel\Request::getUrlPathString() . ' Not Exist');
             }
 
+            // 依照 request 陣列數目 return routingTable 裡的 class Name 或是 function Name
             switch ( $countRequests )
             {
                 case '0':
@@ -69,27 +73,35 @@ class Route
      */
     public static function dispath($request) : void
     {
+        // 取得該 dispath 的  class Name, function Name, argument
         $className        = self::routingTable(\Kernel\Route::CLASS_INDEX, $request);
         $functionName     = self::routingTable(\Kernel\Route::FUNCTION_INDEX, $request);
         $functionArgument = self::getFunctionArgument($request);
 
+        // 執行dispath
         try
         {
+            // 判斷該 class Name 是否存在
             if ( ! \class_exists($className) )
             {
                 throw new \Exception('Action "' . $className . '" Class Not Exist');
             }
 
+            // 判斷該 function Name 是否存在
             if ( ! \method_exists($className, $functionName) )
             {
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" Not Exist');
             }
 
+            // 判斷該 function 的 argument 的 參數數量是合理
             $classReflectionMethod = new \ReflectionMethod($className, $functionName);
             if ( \count($functionArgument) > $classReflectionMethod->getNumberOfParameters() )
             {
                 throw new \Exception('Action "' . $className . '::' . $functionName . '()" number of parameters inconsistent');
             }
+
+            $app = new $className();
+            \call_user_func_array(array($app, $functionName), $functionArgument);
         }
         catch ( \Exception $e )
         {
@@ -99,8 +111,5 @@ class Route
                 exit ($e->getMessage());
             }
         }
-
-        $app = new $className();
-        \call_user_func_array(array($app, $functionName), $functionArgument);
     }
 }

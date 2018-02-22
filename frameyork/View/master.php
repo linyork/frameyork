@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="/Assets/css/bootstrap.css"/>
 
     <?php foreach( $css as $v ):?>
-        <!--START <?php echo ROOT_PATH.$v;?> START-->
+        <!--START <?php echo $v;?> START-->
         <link rel="stylesheet" type="text/css" href="<?php echo $v . '?' . \time();?>" media="screen">
-        <!--END <?php echo ROOT_PATH.$v;?> END-->
+        <!--END <?php echo $v;?> END-->
     <?php endforeach;?>
 
     <title><?php echo \htmlspecialchars($title);?></title>
@@ -40,11 +40,13 @@
 </script>
 <!--END JSON DATA END-->
 
+<!--START JAVASCRIPT START-->
 <?php foreach( $js as $v):?>
-    <!--START <?php echo ROOT_PATH.$v;?> START-->
+    <!--START <?php echo $v;?> START-->
     <script>
         <?php @include ROOT_PATH.$v;?>
     </script>
-    <!--END <?php echo ROOT_PATH.$v;?> END-->
+    <!--END <?php echo $v;?> END-->
 <?php endforeach;?>
+<!--END JAVASCRIPT END-->
 </html>

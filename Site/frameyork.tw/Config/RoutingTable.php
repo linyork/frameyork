@@ -4,6 +4,7 @@ use \Core\Route;
 
 try
 {
+    // home
     Route::add('index', "Home", "index");
     // 個人簡歷
     Route::add('profile/information', "profile", "information");

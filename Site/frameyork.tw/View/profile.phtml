@@ -29,17 +29,17 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
-<!--                        <li class="--><?php //if( $include_page === 'education.phtml' ) { echo 'active';};?><!--">-->
-<!--                            <a href="/profile/education">-->
-<!--                                <i class="icon-home"></i> 學歷 </a>-->
-<!--                        </li>-->
+                        <li class="<?php if( $include_page === 'information.phtml' ) { echo 'active';};?>">
+                            <a href="/profile/information">
+                                <i class="icon-user"></i> 個人資訊 </a>
+                        </li>
                         <li class="<?php if( $include_page === 'experience.phtml' ) { echo 'active';};?>">
                             <a href="/profile/experience">
-                                <i class="icon-settings"></i> 經歷 </a>
+                                <i class="icon-briefcase"></i> 經歷 </a>
                         </li>
                         <li class="<?php if( $include_page === 'skill.phtml' ) { echo 'active';};?>">
                             <a href="/profile/skill">
-                                <i class="icon-info"></i> 專長技能 </a>
+                                <i class="icon-wrench"></i> 專長技能 </a>
                         </li>
                     </ul>
                 </div>

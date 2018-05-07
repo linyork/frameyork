@@ -4,12 +4,12 @@ namespace Application;
 
 class Profile extends \Template\AMaster
 {
-    public function education()
+    public function information()
     {
         $this->addCss('/assets/css/components.min.css');
         $this->addCss('/assets/css/profile.min.css');
-        $this->setTitle('學歷');
-        $data = array('include_page' => 'education.phtml');
+        $this->setTitle('個人資訊');
+        $data = array('include_page' => 'information.phtml');
         $this->display('/profile.phtml',$data);
     }
 

@@ -6,7 +6,7 @@ try
 {
     Route::add('index', "Home", "index");
     // 個人簡歷
-    Route::add('profile/education', "profile", "education");
+    Route::add('profile/information', "profile", "information");
     Route::add('profile/experience', "profile", "experience");
     Route::add('profile/skill', "profile", "skill");
 }

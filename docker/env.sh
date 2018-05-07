@@ -1,10 +1,4 @@
 #!/bin/bash
-# Program:
-#   Project frameyork 本機環境
-#
-# History:
-#   2017/12/03 新增
-#   2017/12/28 修正並新增r restart
 
 # 切換到 evn.sh 檔案目錄底下
 BASEDIR=$(dirname "$0")
@@ -17,71 +11,65 @@ do
     echo "----------------------------------------"
     echo "選擇要啟動的系統:"
     echo "----------------------------------------"
-    echo "1. Nginx + PHP + MySQL + PHPMyAdmin"
+    echo "a. 所有 Server"
     echo "----------------------------------------"
-    echo "2. php"
-    echo "3. Nginx"
-    echo "4. MySQL"
-    echo "5. phpMyAdmin"
+    echo "1. PHP"
+    echo "2. Nginx"
+    echo "3. Mariadb"
+    echo "4. PhpMyAdmin"
+    echo "5. Redis"
     echo "----------------------------------------"
     echo "工具:"
     echo "----------------------------------------"
     echo "r. 重啟 Docker 所有容器"
     echo "c. 關閉 Docker 所有容器"
     echo "l. 顯示 Docker 所有容器"
+    echo "d. 指定重啟 Docker 項目編號容器"
+    echo "  - Example: 重啟 PHP 容器"
+    echo "  - input: d 1"
     echo "q. Exit"
     echo "----------------------------------------"
     echo "選擇 migrate 設定:"
     echo "----------------------------------------"
-    echo "t. create table"
-    echo "b. rollback"
+    echo "mg. 執行 migrate"
+    echo "rb. 執行 rollback"
     echo "----------------------------------------"
     read -p "Input:" input input2
 
     clear
 
     case $input in
+        a)
+            # 啟動 php
+            docker-compose up -d --build php
+            # 啟動 nginx
+            docker-compose up -d --build nginx
+            # 啟動 mysql
+            docker-compose up -d --build mariadb
+            # 啟動 phpmyadmin_mysql
+            docker-compose up -d --build phpmyadmin
+            # 啟動 redis
+            docker-compose up -d --build redis
+            ;;
         1)
             # 啟動 php
             docker-compose up -d --build php
-            # 啟動 nginx
-            docker-compose up -d --build nginx
-            # 啟動 mysql
-            docker-compose up -d --build mysql
-            # 啟動 phpmyadmin
-            docker-compose up -d --build phpmyadmin_mysql
             ;;
         2)
-            # 啟動 php
-            docker-compose up -d --build php
-            ;;
-        3)
             # 啟動 nginx
             docker-compose up -d --build nginx
             ;;
-        4)
+        3)
             # 啟動 mysql
-            docker-compose up -d --build mysql
+            docker-compose up -d --build mariadb
+            ;;
+        4)
+            # 啟動 phpmyadmin_mysql
+            docker-compose up -d --build phpmyadmin
             ;;
         5)
-            # 啟動 phpmyadmin
-            docker-compose up -d --build phpmyadmin_mysql
-            ;;
-        s)
-            # 啟動指定的服務
-            if [  "$input2" == "" ]; then
-                echo "which service do you want to start?"
-            else
-                docker-compose up -d --build $input2
-            fi
-            ;;
-        d)
-            # 關閉指定的服務
-            if [  "$input2" == "" ]; then
-                echo "which service do you want to shutdown?"
-            else
-                docker rm -f $input2
-            fi
+            # 啟動 redis
+            docker-compose up -d --build redis
             ;;
         r)
             # 關閉透過 docker-compose 產生的 container
@@ -91,9 +79,11 @@ do
             # 啟動 nginx
             docker-compose up -d --build nginx
             # 啟動 mysql
-            docker-compose up -d --build mysql
-            # 啟動 phpmyadmin
-            docker-compose up -d --build phpmyadmin_mysql
+            docker-compose up -d --build mariadb
+            # 啟動 phpmyadmin_mysql
+            docker-compose up -d --build phpmyadmin
+            # 啟動 redis
+            docker-compose up -d --build redis
             ;;
         l)
             # 查看目前的 container
@@ -103,13 +93,42 @@ do
             # 關閉透過 docker-compose 產生的 container
             docker-compose down
             ;;
-        t)
-            # 執行 migrate
-            php ../vendor/bin/phinx migrate
+        d)
+            # 重啟指定的服務
+            if [  "$input2" == "" ]; then
+                echo "which service do you want to shutdown?"
+            else
+                case $input2 in
+                    1)
+                        docker rm -f php
+                        docker-compose up -d --build php
+                        ;;
+                    2)
+                        docker rm -f nginx
+                        docker-compose up -d --build nginx
+                        ;;
+                    3)
+                        docker rm -f mysql
+                        docker-compose up -d --build mariadb
+                        ;;
+                    4)
+                        docker rm -f phpmyadmin_mysql
+                        docker-compose up -d --build phpmyadmin
+                        ;;
+                    5)
+                        docker rm -f redis
+                        docker-compose up -d --build redis
+                        ;;
+                esac
+            fi
             ;;
-        b)
+        mg)
+            # 執行 migrate
+            php ./../vendor/bin/phinx migrate
+            ;;
+        rb)
             # 執行 rollback
-            php ../vendor/bin/phinx rollback -t 0
+            php ./../vendor/bin/phinx rollback -t 0
             ;;
         *)
             # 離開程序

@@ -26,6 +26,7 @@ class Profile extends \Template\AMaster
     {
         $this->addCss('/assets/css/components.min.css');
         $this->addCss('/assets/css/profile.min.css');
+        $this->addScript('/assets/js/skill-star.js');
         $this->setTitle('技能專長');
         $data = array('include_page' => 'skill.phtml');
         $this->display('/profile.phtml',$data);

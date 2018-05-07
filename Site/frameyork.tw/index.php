@@ -86,22 +86,3 @@ catch(\Exception $e)
     }
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
 }
-
-//Session 設定
-//(function()
-//{
-//    $expire = ini_get('session.gc_maxlifetime');
-//    session_set_cookie_params($expire, COOKIE_PATH, COOKIE_DOMAIN, COOKIE_HTTPS_STATUS, COOKIE_HTTP_NOTONLY);
-//
-//    $osid = session_id();
-//
-//    if(empty($osid))
-//    {
-//        if (isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] !== WWW_DOMAIN) {
-//            if (isset($_COOKIE['PHPSESSID']) && !empty($_COOKIE['PHPSESSID'])) {
-//                session_id($_COOKIE['PHPSESSID']);
-//            }
-//        }
-//        session_start();
-//    }
-//})();

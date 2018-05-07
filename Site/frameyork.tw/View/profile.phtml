@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN BEGIN PROFILE SIDEBAR -->
+        <div class="profile-sidebar">
+            <div class="portlet light profile-sidebar-portlet ">
+
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="../assets/img/profile_user.jpg" class="img-responsive" alt=""> </div>
+                <!-- END SIDEBAR USERPIC -->
+
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name"> 林宥勳(York Lin) </div>
+                    <div class="profile-usertitle-job"> 系統分析 ｜ 程式設計 </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+
+                <!-- SIDEBAR BUTTONS -->
+                <div class="profile-userbuttons">
+                    <a href="#">
+                        <i class="fa fa-2x font-grey-cascade fa-github "></i>
+                    </a>
+                    <i class="fa fa-2x font-blue-sharp fa-facebook-square"></i>
+                    <i class="fa fa-2x font-red-pink fa-instagram"></i>
+                </div>
+                <!-- END SIDEBAR BUTTONS -->
+
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+<!--                        <li class="--><?php //if( $include_page === 'education.phtml' ) { echo 'active';};?><!--">-->
+<!--                            <a href="/profile/education">-->
+<!--                                <i class="icon-home"></i> 學歷 </a>-->
+<!--                        </li>-->
+                        <li class="<?php if( $include_page === 'experience.phtml' ) { echo 'active';};?>">
+                            <a href="/profile/experience">
+                                <i class="icon-settings"></i> 經歷 </a>
+                        </li>
+                        <li class="<?php if( $include_page === 'skill.phtml' ) { echo 'active';};?>">
+                            <a href="/profile/skill">
+                                <i class="icon-info"></i> 專長技能 </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+
+            </div>
+        </div>
+        <!-- END BEGIN PROFILE SIDEBAR -->
+
+        <!-- BEGIN PROFILE CONTENT -->
+        <?php include_once $include_page;?>
+        <!-- ENF PROFILE CONTENT -->
+
+    </div>
+</div>

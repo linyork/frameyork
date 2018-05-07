@@ -4,38 +4,21 @@ namespace Template;
 
 abstract class AMaster extends \Core\Template\AHtml
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        // TODO 判斷登入
-        if(true)
-        {
-            // 登入
-        }
-        else
-        {
-            // 未登入
-            $html = new \Core\View('/login.php');
-            echo $html;
-            exit;
-        }
-    }
-
-    protected function display(string $viewPath, array $data = array()) : void
+    protected function display( string $viewPath, array $data = array() ) : void
     {
         // 最外框
-        $html = new \Core\View('/master.php');
+        $html = new \Core\View('/master.phtml');
 
         // header
-        $header = new \Core\View('/header.php');
+        $header = new \Core\View('/header.phtml');
+        $header->setViewData( array( 'title' => $this->_title ) );
 
         // body
         $body   = new \Core\View($viewPath);
         $body->setViewData($data);
 
         // footer
-        $footer = new \Core\View('/footer.php');
+        $footer = new \Core\View('/footer.phtml');
 
         // 組版
         $html->setViewData(array(

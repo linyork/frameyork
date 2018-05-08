@@ -1,4 +1,21 @@
-<?php
-$Parsedown = new Parsedown();
+<div class="row">
+    <div class="col-md-12">
+        <br>
+        <div class="row">
+            <div class=" col-md-offset-2 col-md-8">
+                <button type="button" class="btn btn-info" onclick="history.back()">
+                    回上頁
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class=" col-md-offset-2 col-md-8" style="background-color: white;">
+            <?php $Parsedown = new Parsedown();
+            echo $Parsedown->text(\file_get_contents("assets/md/$filename")); ?>
+            </div>
+        </div>
+    </div>
+</div>
 
-echo $Parsedown->text(\file_get_contents("assets/md/docker-基本指令操作.md"));
+

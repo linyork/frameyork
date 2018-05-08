@@ -11,7 +11,8 @@ try
     Route::add('profile/experience', "profile", "experience");
     Route::add('profile/skill', "profile", "skill");
     // 筆記
-    Route::add('note',"note","index");
+    Route::add('notelist',"note","noteList");
+    Route::add('note',"note","note");
 }
 catch(\Exception $e)
 {

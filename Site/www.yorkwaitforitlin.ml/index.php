@@ -55,34 +55,53 @@ require_once CONFIG_PATH . '/RoutingTable.php';
  *---------------------------------------------------------------
  * TODO:  持續優化
  */
-try
+// 檢查當前環境
+define('ENV', \Core\Config::getEnvName());
+
+// 讀取環境設定
+\Core\Config::loadEnvFile();
+
+// URL前綴處理
+$urlPrefix = ENV.'-';
+if(ENV === PROD)
 {
-    // 檢查當前環境
-    define('ENV', \Core\Config::getEnvName());
-
-    // 讀取環境設定
-    \Core\Config::loadEnvFile();
-
-    // URL前綴處理
-    $urlPrefix = ENV.'-';
-    if(ENV === PROD)
-    {
-        $urlPrefix = '';
-    }
-
-    define('URL_PREFIX', $urlPrefix);
-    define('FULL_DOMAIN', URL_PREFIX . MAIN_DOMAIN);
-    define('FULL_URL', \Core\Config::getRequestScheme() . FULL_DOMAIN);
-
-    // Route 解析
-    \Core\Route::dispath();
+    $urlPrefix = '';
 }
-catch(\Exception $e)
-{
-    if ( defined('DEBUG') && DEBUG)
-    {
-        echo $e->getMessage();
-        exit;
-    }
-    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-}
+
+define('URL_PREFIX', $urlPrefix);
+define('FULL_DOMAIN', URL_PREFIX . MAIN_DOMAIN);
+define('FULL_URL', \Core\Config::getRequestScheme() . FULL_DOMAIN);
+var_dump(URL_PREFIX);
+var_dump(FULL_DOMAIN);
+var_dump(FULL_URL);
+//try
+//{
+//    // 檢查當前環境
+//    define('ENV', \Core\Config::getEnvName());
+//
+//    // 讀取環境設定
+//    \Core\Config::loadEnvFile();
+//
+//    // URL前綴處理
+//    $urlPrefix = ENV.'-';
+//    if(ENV === PROD)
+//    {
+//        $urlPrefix = '';
+//    }
+//
+//    define('URL_PREFIX', $urlPrefix);
+//    define('FULL_DOMAIN', URL_PREFIX . MAIN_DOMAIN);
+//    define('FULL_URL', \Core\Config::getRequestScheme() . FULL_DOMAIN);
+//
+//    // Route 解析
+//    \Core\Route::dispath();
+//}
+//catch(\Exception $e)
+//{
+//    if ( defined('DEBUG') && DEBUG)
+//    {
+//        echo $e->getMessage();
+//        exit;
+//    }
+//    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+//}

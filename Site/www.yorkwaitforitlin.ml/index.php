@@ -65,7 +65,11 @@ define('ENV', \Core\Config::getEnvName());
 try
 {
     // 檢查當前環境
-    define('ENV', \Core\Config::getEnvName());
+    if( ! ENV)
+    {
+        define('ENV', \Core\Config::getEnvName());
+    }
+
 
     // 讀取環境設定
     \Core\Config::loadEnvFile();

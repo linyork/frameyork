@@ -7,12 +7,12 @@ try
     // home
     Route::add('index', "Home", "index");
     // 個人簡歷
-    Route::add('profile/information', "profile", "information");
-    Route::add('profile/experience', "profile", "experience");
-    Route::add('profile/skill', "profile", "skill");
+    Route::add('profile/information', "Profile", "information");
+    Route::add('profile/experience', "Profile", "experience");
+    Route::add('profile/skill', "Profile", "skill");
     // 筆記
-    Route::add('notelist',"note","noteList");
-    Route::add('note',"note","note");
+    Route::add('notelist',"Note","noteList");
+    Route::add('note',"Note","note");
 }
 catch(\Exception $e)
 {

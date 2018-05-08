@@ -1,0 +1,38 @@
+## 目的 ##
+
+ - 為了達到一鍵複製字串(url)
+ 
+## 紀錄 ##
+
+### 程式 ###
+
+#### javascript ####
+
+```javascript
+function copyString ( string )
+{
+ 
+    var clip_area = document.createElement('textarea');
+ 
+    clip_area.textContent = string;
+ 
+ 
+    document.body.appendChild(clip_area);
+ 
+    clip_area.select();
+ 
+ 
+    document.execCommand('copy');
+ 
+    clip_area.remove();
+ 
+}
+``` 
+
+#### html ####
+
+```html
+<a onclick="copyString('這裡就是複製的文字拉')"> 
+    複製至剪貼簿   
+</a>
+```

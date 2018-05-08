@@ -10,6 +10,8 @@ try
     Route::add('profile/information', "profile", "information");
     Route::add('profile/experience', "profile", "experience");
     Route::add('profile/skill', "profile", "skill");
+    // 筆記
+    Route::add('note',"note","index");
 }
 catch(\Exception $e)
 {

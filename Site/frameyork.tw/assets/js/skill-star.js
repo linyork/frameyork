@@ -4,6 +4,7 @@ $(document).ready(function(){
         var fraction = $(this).attr('data-id');
         var starDiv = document.createElement("div");
         starDiv.style.float = 'right';
+        starDiv.style.color = 'gold';
 
         for (i = 1; i <= Math.abs(fraction); i++) {
             var fullStar = document.createElement("i");

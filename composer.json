@@ -1,5 +1,9 @@
 {
+    "require": {
+        "erusev/parsedown": "^1.7"
+    },
     "require-dev": {
+        "erusev/parsedown": "^1.7",
         "robmorgan/phinx": "^0.9.1",
         "fzaninotto/faker": "^1.6"
     }

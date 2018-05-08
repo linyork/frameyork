@@ -86,11 +86,10 @@ try
 }
 catch(\Exception $e)
 {
-    echo $e->getMessage();
-//    if ( defined('DEBUG') && DEBUG)
-//    {
-//        echo $e->getMessage();
-//        exit;
-//    }
-//    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+    if ( defined('DEBUG') && DEBUG)
+    {
+        echo $e->getMessage();
+        exit;
+    }
+    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
 }

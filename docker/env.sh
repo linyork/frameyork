@@ -46,10 +46,10 @@ do
             docker-compose up -d --build nginx
             # 啟動 mysql
             docker-compose up -d --build mariadb
-            # 啟動 phpmyadmin_mysql
-            docker-compose up -d --build phpmyadmin
-            # 啟動 redis
-            docker-compose up -d --build redis
+#            # 啟動 phpmyadmin_mysql
+#            docker-compose up -d --build phpmyadmin
+#            # 啟動 redis
+#            docker-compose up -d --build redis
             ;;
         1)
             # 啟動 php
@@ -80,10 +80,10 @@ do
             docker-compose up -d --build nginx
             # 啟動 mysql
             docker-compose up -d --build mariadb
-            # 啟動 phpmyadmin_mysql
-            docker-compose up -d --build phpmyadmin
-            # 啟動 redis
-            docker-compose up -d --build redis
+#            # 啟動 phpmyadmin_mysql
+#            docker-compose up -d --build phpmyadmin
+#            # 啟動 redis
+#            docker-compose up -d --build redis
             ;;
         l)
             # 查看目前的 container

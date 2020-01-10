@@ -2,12 +2,7 @@ version: "3"
 
 networks:
   frontend:
-# 設定backend子網路
   backend:
-    ipam:
-      driver: default
-      config:
-        - subnet: ${BACKEND_SUBNET}
 
 services:
 
@@ -28,9 +23,8 @@ services:
   nginx:
     container_name: nginx
     networks:
-      backend:
-        ipv4_address: ${NGINX_IP}
-      frontend:
+      - backend
+      - frontend
     image: nginx:latest
     ports:
       - "80:80"
@@ -57,24 +51,24 @@ services:
     command: mysqld --max_allowed_packet=1024M
     volumes:
       - ./mariadb/data:/var/lib/mysql
-
-# phpmyadmin
-  phpmyadmin:
-    container_name: phpmyadmin
-    networks:
-      - frontend
-      - backend
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8080:80"
-    environment:
-      PMA_HOST: mariadb
-
-# redis
-  redis:
-    container_name: redis
-    networks:
-      - backend
-    image: redis:3.2
-    ports:
-      - "6379:6379"
+#
+## phpmyadmin
+#  phpmyadmin:
+#    container_name: phpmyadmin
+#    networks:
+#      - frontend
+#      - backend
+#    image: phpmyadmin/phpmyadmin
+#    ports:
+#      - "8080:80"
+#    environment:
+#      PMA_HOST: mariadb
+#
+## redis
+#  redis:
+#    container_name: redis
+#    networks:
+#      - backend
+#    image: redis:3.2
+#    ports:
+#      - "6379:6379"

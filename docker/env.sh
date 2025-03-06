@@ -41,57 +41,57 @@ do
     case $input in
         a)
             # 啟動 php
-            docker-compose up -d --build php
+            docker compose up -d --build php
             # 啟動 nginx
-            docker-compose up -d --build nginx
+            docker compose up -d --build nginx
             # 啟動 mysql
-            docker-compose up -d --build mariadb
+            docker compose up -d --build mariadb
 #            # 啟動 phpmyadmin_mysql
-#            docker-compose up -d --build phpmyadmin
+#            docker compose up -d --build phpmyadmin
 #            # 啟動 redis
-#            docker-compose up -d --build redis
+#            docker compose up -d --build redis
             ;;
         1)
             # 啟動 php
-            docker-compose up -d --build php
+            docker compose up -d --build php
             ;;
         2)
             # 啟動 nginx
-            docker-compose up -d --build nginx
+            docker compose up -d --build nginx
             ;;
         3)
             # 啟動 mysql
-            docker-compose up -d --build mariadb
+            docker compose up -d --build mariadb
             ;;
         4)
             # 啟動 phpmyadmin_mysql
-            docker-compose up -d --build phpmyadmin
+            docker compose up -d --build phpmyadmin
             ;;
         5)
             # 啟動 redis
-            docker-compose up -d --build redis
+            docker compose up -d --build redis
             ;;
         r)
-            # 關閉透過 docker-compose 產生的 container
-            docker-compose down
+            # 關閉透過 docker compose 產生的 container
+            docker compose down
             # 啟動 php
-            docker-compose up -d --build php
+            docker compose up -d --build php
             # 啟動 nginx
-            docker-compose up -d --build nginx
+            docker compose up -d --build nginx
             # 啟動 mysql
-            docker-compose up -d --build mariadb
+            docker compose up -d --build mariadb
 #            # 啟動 phpmyadmin_mysql
-#            docker-compose up -d --build phpmyadmin
+#            docker compose up -d --build phpmyadmin
 #            # 啟動 redis
-#            docker-compose up -d --build redis
+#            docker compose up -d --build redis
             ;;
         l)
             # 查看目前的 container
             docker ps -a
             ;;
         c)
-            # 關閉透過 docker-compose 產生的 container
-            docker-compose down
+            # 關閉透過 docker compose 產生的 container
+            docker compose down
             ;;
         d)
             # 重啟指定的服務
@@ -101,23 +101,23 @@ do
                 case $input2 in
                     1)
                         docker rm -f php
-                        docker-compose up -d --build php
+                        docker compose up -d --build php
                         ;;
                     2)
                         docker rm -f nginx
-                        docker-compose up -d --build nginx
+                        docker compose up -d --build nginx
                         ;;
                     3)
                         docker rm -f mysql
-                        docker-compose up -d --build mariadb
+                        docker compose up -d --build mariadb
                         ;;
                     4)
                         docker rm -f phpmyadmin_mysql
-                        docker-compose up -d --build phpmyadmin
+                        docker compose up -d --build phpmyadmin
                         ;;
                     5)
                         docker rm -f redis
-                        docker-compose up -d --build redis
+                        docker compose up -d --build redis
                         ;;
                 esac
             fi
